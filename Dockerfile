@@ -10,6 +10,12 @@ RUN set -e \
       && apt-get clean
 
 RUN set -e \
-      && go get -v github.com/gohugoio/hugo
+      && go get github.com/magefile/mage \
+      && go get -d github.com/gohugoio/hugo \
+      && cd /go/src/github.com/gohugoio/hugo \
+      && mage vendor \
+      && mage install
+
+EXPOSE 1313
 
 ENTRYPOINT ["/go/bin/hugo"]
