@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  hugo:
+    container_name: hugo
+    build:
+      context: .
+    image: dceoy/hugo:latest
+    ports:
+      - 1313:1313
+    volumes:
+      - .:/work
+    working_dir: /work
+    entrypoint:
+      - /go/bin/hugo
+    command:
+      - server
+      - --buildDrafts
+      - --watch
