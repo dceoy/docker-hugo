@@ -9,7 +9,7 @@ services:
     ports:
       - 1313:1313
     volumes:
-      - .:/work
+      - ${PWD}:/work
     working_dir: /work
     entrypoint:
       - /go/bin/hugo
