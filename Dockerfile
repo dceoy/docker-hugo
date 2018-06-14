@@ -1,10 +1,15 @@
-FROM fedora:latest
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN set -e \
-      && dnf -y upgrade \
-      && dnf -y install git golang \
-      && dnf -y autoremove \
-      && dnf clean all
+      && apt-get -y update \
+      && apt-get -y dist-upgrade \
+      && apt-get -y install --no-install-recommends --no-install-suggests \
+                            ca-certificates git golang make \
+      && apt-get -y autoremove \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
 
 ENV PATH ${PATH}:/go/bin
 ENV GOPATH /go
