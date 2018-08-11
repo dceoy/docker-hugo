@@ -1,3 +1,4 @@
+---
 version: '3'
 
 services:
@@ -9,8 +10,8 @@ services:
     ports:
       - 1313:1313
     volumes:
-      - ${PWD}:/work
-    working_dir: /work
+      - ${PWD}:/wd
+    working_dir: /wd
     entrypoint:
       - /go/bin/hugo
     command:
