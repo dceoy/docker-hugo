@@ -13,7 +13,7 @@ services:
       - ${PWD}:/wd
     working_dir: /wd
     entrypoint:
-      - /opt/go/bin/hugo
+      - /usr/local/bin/hugo
     command:
       - server
       - --bind=0.0.0.0

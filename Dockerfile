@@ -2,6 +2,8 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ADD https://raw.githubusercontent.com/dceoy/print-github-tags/master/print-github-tags /usr/local/bin/print-github-tags
+
 RUN set -e \
       && ln -sf bash /bin/sh
 
@@ -9,18 +11,21 @@ RUN set -e \
       && apt-get -y update \
       && apt-get -y dist-upgrade \
       && apt-get -y install --no-install-recommends --no-install-suggests \
-        ca-certificates git golang \
+        ca-certificates curl \
       && apt-get -y autoremove \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
-ENV PATH /opt/go/bin:${PATH}
-ENV GOPATH /opt/go
-
-RUN set -e \
-      && mkdir /opt/go \
-      && go get github.com/gohugoio/hugo
+RUN set -eo pipefail \
+      && chmod +x /usr/local/bin/print-github-tags \
+      && print-github-tags --release --latest gohugoio/hugo \
+        | tr -d v \
+        | xargs -i curl -SL \
+          https://github.com/gohugoio/hugo/releases/download/v{}/hugo_{}_Linux-64bit.deb \
+          -o /tmp/hugo.deb \
+      && apt-get -y install /tmp/hugo.deb \
+      && rm -f /tmp/hugo.deb
 
 EXPOSE 1313
 
-ENTRYPOINT ["/opt/go/bin/hugo"]
+ENTRYPOINT ["/usr/local/bin/hugo"]
