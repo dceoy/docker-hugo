@@ -3,6 +3,8 @@ docker-hugo
 
 Dockerfile for Hugo
 
+[![CI to Docker Hub](https://github.com/dceoy/docker-hugo/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/dceoy/docker-hugo/actions/workflows/docker-publish.yml)
+
 Docker image
 ------------
 
