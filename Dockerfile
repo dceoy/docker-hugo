@@ -21,7 +21,7 @@ RUN set -eo pipefail \
       && print-github-tags --release --latest gohugoio/hugo \
         | tr -d v \
         | xargs -i curl -SL \
-          https://github.com/gohugoio/hugo/releases/download/v{}/hugo_extended_{}_Linux-64bit.deb \
+          https://github.com/gohugoio/hugo/releases/download/v{}/hugo_extended_{}_linux-amd64.deb \
           -o /tmp/hugo.deb \
       && apt-get -y install /tmp/hugo.deb \
       && rm -f /tmp/hugo.deb
