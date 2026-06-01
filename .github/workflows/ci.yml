@@ -34,9 +34,10 @@ jobs:
     uses: dceoy/gh-actions-for-devops/.github/workflows/docker-lint-and-scan.yml@main   # zizmor: ignore[unpinned-uses]
   docker-build-and-push:
     if: >
-      github.event_name == 'workflow_dispatch'
-      && inputs.workflow == 'build'
-      && (! (failure() || cancelled()))
+      github.event_name == 'push'
+      || (github.event_name == 'workflow_dispatch' && inputs.workflow == 'build')
+    needs:
+      - docker-lint-and-scan
     permissions:
       contents: write
       packages: write
@@ -57,6 +58,8 @@ jobs:
   dependabot-auto-merge:
     if: >
       github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    needs:
+      - docker-lint-and-scan
     permissions:
       contents: write
       pull-requests: write
