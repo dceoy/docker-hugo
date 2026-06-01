@@ -1,0 +1,28 @@
+---
+services:
+  hugo:
+    container_name: hugo
+    image: dceoy/hugo:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: app
+      args:
+        HUGO_VERSION: latest
+        USER_NAME: hugo
+        USER_UID: '1001'
+        USER_GID: '1001'
+    ports:
+      - 1313:1313
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    environment:
+      - /usr/local/bin/hugo
+    command:
+      - server
+      - --bind=0.0.0.0
+      - --buildDrafts
+      - --buildExpired
+      - --buildFuture
+      - --watch
