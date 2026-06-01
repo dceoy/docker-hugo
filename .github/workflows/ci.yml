@@ -34,20 +34,19 @@ jobs:
     uses: dceoy/gh-actions-for-devops/.github/workflows/docker-lint-and-scan.yml@main   # zizmor: ignore[unpinned-uses]
   docker-build-and-push:
     if: >
-      github.event_name == 'workflow_dispatch'
-      && inputs.workflow == 'build'
-      && (! (failure() || cancelled()))
+      github.event_name == 'push'
+      || (github.event_name == 'workflow_dispatch' && inputs.workflow == 'build')
     permissions:
       contents: write
       packages: write
     uses: dceoy/gh-actions-for-devops/.github/workflows/docker-build-and-push.yml@main  # zizmor: ignore[unpinned-uses]
     with:
       registry: docker.io
-      registry-user: ${{ github.actor }}
+      registry-user: ${{ github.repository_owner }}
       image-name: ${{ github.repository_owner }}/hugo
       context: .
       file: ./Dockerfile
-      target: hugo
+      target: app
       platforms: linux/amd64,linux/arm64
       push: true
       scan-before-build: false
@@ -57,6 +56,8 @@ jobs:
   dependabot-auto-merge:
     if: >
       github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    needs:
+      - docker-lint-and-scan
     permissions:
       contents: write
       pull-requests: write
