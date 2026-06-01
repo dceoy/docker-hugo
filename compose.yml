@@ -2,7 +2,7 @@
 services:
   hugo:
     container_name: hugo
-    image: ghcr.io/dceoy/hugo:latest
+    image: dceoy/hugo:latest
     build:
       context: .
       dockerfile: Dockerfile

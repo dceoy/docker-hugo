@@ -12,7 +12,7 @@ Extended.
 Pull the image from [GitHub Container Registry](https://github.com/dceoy/docker-hugo/pkgs/container/hugo).
 
 ```bash
-docker image pull ghcr.io/dceoy/hugo
+docker image pull dceoy/hugo
 ```
 
 ## Usage
@@ -22,11 +22,11 @@ Run hugo commands
 ```bash
 # Run a web server
 docker container run --rm -p 1313:1313 -v "${PWD}:/workspace" -w /workspace \
-    ghcr.io/dceoy/hugo server --bind=0.0.0.0 --buildDrafts --watch
+    dceoy/hugo server --bind=0.0.0.0 --buildDrafts --watch
 
 # Create a new content
 docker container run --rm -v "${PWD}:/workspace" -w /workspace \
-    ghcr.io/dceoy/hugo new post/new.md
+    dceoy/hugo new post/new.md
 ```
 
 Run hugo commands with Docker Compose
