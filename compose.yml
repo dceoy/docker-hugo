@@ -12,6 +12,10 @@ services:
         USER_NAME: hugo
         USER_UID: '1001'
         USER_GID: '1001'
+      cache_from:
+        - type=gha
+      cache_to:
+        - type=gha,mode=max
     ports:
       - 1313:1313
     volumes:
