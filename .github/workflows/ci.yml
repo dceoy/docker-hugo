@@ -47,6 +47,7 @@ jobs:
     with:
       registry: docker.io
       registry-user: ${{ github.repository_owner }}
+      source-registry: dhi.io
       image-name: ${{ github.repository_owner }}/hugo
       context: .
       file: ./Dockerfile
