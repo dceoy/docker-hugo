@@ -46,6 +46,7 @@ jobs:
     uses: dceoy/gha-for-devops/.github/workflows/docker-build-and-push.yml@9e394d7c18b3a00fb853cd3c693cc4eeb5f0c825  # v2.3.0
     with:
       registry: docker.io
+      login-dhi: true
       registry-user: ${{ github.repository_owner }}
       image-name: ${{ github.repository_owner }}/hugo
       context: .
