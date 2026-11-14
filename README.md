@@ -4,8 +4,7 @@ Dockerfile and compose.yml for [Hugo](https://gohugo.io/)
 
 [![CI/CD](https://github.com/dceoy/docker-hugo/actions/workflows/ci.yml/badge.svg)](https://github.com/dceoy/docker-hugo/actions/workflows/ci.yml)
 
-This repository provides a Docker image and Docker Compose workflow for Hugo
-Extended.
+This repository provides a Docker image and Docker Compose workflow for Hugo.
 
 ## Docker image
 

@@ -26,7 +26,8 @@ RUN \
         ca-certificates curl passwd
 
 RUN \
-      curl -fsSL -o /usr/local/bin/print-github-tags \
+      mkdir -p /usr/local/bin \
+      && curl -fsSL -o /usr/local/bin/print-github-tags \
         https://raw.githubusercontent.com/dceoy/print-github-tags/master/print-github-tags \
       && chmod +x /usr/local/bin/print-github-tags
 
@@ -39,8 +40,9 @@ RUN \
         hugo_version="${HUGO_VERSION#v}"; \
       fi \
       && curl -fsSL -o /tmp/hugo.deb \
-        "https://github.com/gohugoio/hugo/releases/download/v${hugo_version}/hugo_extended_${hugo_version}_linux-${arch}.deb" \
-      && apt-get -yqq install --no-install-recommends --no-install-suggests /tmp/hugo.deb
+        "https://github.com/gohugoio/hugo/releases/download/v${hugo_version}/hugo_${hugo_version}_linux-${arch}.deb" \
+      && apt-get -yqq install --no-install-recommends --no-install-suggests /tmp/hugo.deb \
+      && /usr/local/bin/hugo version
 
 RUN \
       groupadd --gid "${USER_GID}" "${USER_NAME}" \
