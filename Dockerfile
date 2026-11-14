@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG UBUNTU_VERSION=26.04
-FROM docker.io/library/ubuntu:${UBUNTU_VERSION} AS app
+ARG DEBIAN_TAG=trixie-dev
+FROM dhi.io/debian-base:${DEBIAN_TAG} AS app
 
 ARG HUGO_VERSION=latest
 ARG USER_NAME=hugo
@@ -23,7 +23,7 @@ RUN \
       apt-get -yqq update \
       && apt-get -yqq upgrade \
       && apt-get -yqq install --no-install-recommends --no-install-suggests \
-        ca-certificates curl
+        ca-certificates curl passwd
 
 RUN \
       curl -fsSL -o /usr/local/bin/print-github-tags \
